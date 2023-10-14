@@ -4,6 +4,7 @@ print("Orbiton Space Station - Operations and Drones")
 
 //4
 class StationModule {
+    
     private let moduleName: String
     var drone: Drone?
     
@@ -19,6 +20,7 @@ class StationModule {
 
 //1
 class ControlCenter: StationModule {
+    
     var isLockedDown: Bool
     private let securityCode: String = "I hope aliens are real."
     
@@ -48,6 +50,7 @@ class ControlCenter: StationModule {
 
 //2
 class ResearchLab: StationModule {
+    
     var labSample: [String] = []
     
     func getSample(newSample: String) {
@@ -57,6 +60,7 @@ class ResearchLab: StationModule {
 
 //3
 class LifeSupportSystem: StationModule {
+    
     var oxygenLevel: Int
     
     init(oxygenLevel: Int, moduleName: String, drone: Drone) {
@@ -76,6 +80,7 @@ class LifeSupportSystem: StationModule {
 
 //6
 class Drone {
+    
     var task: String?
     unowned var assignedModule: StationModule
     weak var missionControlLink: MissionControl?
@@ -100,9 +105,9 @@ class Drone {
 //7
 class OrbitonSpaceStation {
     //??????/
-    let controlCenterDrone = Drone(task: nil, assignedModule: <#T##StationModule#>, missionControlLink: nil)
-    let researchLabDrone = Drone(task: nil, assignedModule: <#T##StationModule#>, missionControlLink: nil)
-    let lifeSupportSystemDrone = Drone(task: nil, assignedModule: <#T##StationModule#>, missionControlLink: nil)
+    let controlCenterDrone = Drone(task: nil, assignedModule: ControlCenter, missionControlLink: nil)
+    let researchLabDrone = Drone(task: nil, assignedModule: ResearchLab, missionControlLink: nil)
+    let lifeSupportSystemDrone = Drone(task: nil, assignedModule: LifeSupportSystem, missionControlLink: nil)
     
     let controlCenter = ControlCenter(isLockedDown: true, moduleName: "Control Center", drone: controlCenterDrone)
     let researchLab = ResearchLab(moduleName: "Research Lab", drone: researchLabDrone)
@@ -119,6 +124,7 @@ class OrbitonSpaceStation {
 
 //8
 class MissionControl {
+    
     var spaceStation: OrbitonSpaceStation?
     
     init(spaceStation: OrbitonSpaceStation) {
@@ -152,7 +158,33 @@ class MissionControl {
     }
 }
 
-//9
-class OrbitronSpaceStation {
-    //Clown music starts playing
-}
+
+//Vaime exla mivxvdi kidev erT orbitronis clasSi vwerdi am raRaceebs da magitom amiwitlda yvelaferi (I'm crying on the inside)
+let orbitron = OrbitonSpaceStation()
+let missionControl = MissionControl(spaceStation: orbitron)
+
+missionControl.connectFromEarth(orbitonSpaceStation: orbitron)
+missionControl.requestControlCentralStatus()
+
+let controlCenterTask = "Debug or something."
+let researchLabTask = "Orginize samples."
+let lifeSupportSystemTask = "Regulate oxygen levels."
+
+orbitron.controlCenter.giveDroneTask(task: controlCenterTask)
+orbitron.researchLab.giveDroneTask(task: researchLabTask)
+orbitron.lifeSupportSystem.giveDroneTask(task: lifeSupportSystemTask)
+
+missionControl.requestDroneStatus(module: orbitron.controlCenter)
+missionControl.requestDroneStatus(module: orbitron.lifeSupportSystem)
+missionControl.requestDroneStatus(module: orbitron.researchLab)
+
+missionControl.requestOxygenStatus()
+
+var password = "ihopealiensarereal."
+
+orbitron.inCaseOfEmergency(password: password)
+orbitron.controlCenter.checkLockdown()
+
+password = "I hope aliens are real."
+orbitron.inCaseOfEmergency(password: password)
+orbitron.controlCenter.checkLockdown()
